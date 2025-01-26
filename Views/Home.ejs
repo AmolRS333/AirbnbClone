@@ -1,0 +1,174 @@
+<% layout("/layouts/boilerplate") -%>
+<style>
+  #filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    border-radius: 1rem;
+    background: #f8f9fa;
+    color: #000000;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .filter {
+    text-align: center;
+    margin-right: 1.5rem;
+    opacity: 0.6;
+  }
+  #filters b {
+    font-size: 0.9rem;
+  }
+
+  .filter:hover {
+    opacity: 1;
+  }
+
+  .filter i {
+    margin-right: 0.5rem;
+  }
+  .tax-info {
+    display: none;
+    font-size: 0.9rem;
+  }
+  .tax-toggle{
+    display: flex;
+    padding: 12px 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 1px solid #848484;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+<div id="filters">
+  <div class="filter">
+    <div class="icons">
+      <i class="fa-solid fa-fire"></i>
+    </div>
+    <b class="names">Trending</b>
+  </div>
+  <div class="filter">
+    <div class="icons">
+      <i class="fa-solid fa-bed"></i>
+    </div>
+    <b class="names">Rooms</b>
+  </div>
+  <div class="filter">
+    <div class="icons">
+      <i class="fa-solid fa-city"></i>
+    </div>
+    <b class="names">Iconic Cities</b>
+  </div>
+  <div class="filter">
+    <div class="icons">
+      <i class="fa-solid fa-water"></i>
+    </div>
+    <b class="names">Lake Front</b>
+  </div>
+  <div class="filter">
+    <div class="icons">
+      <i class="fa-solid fa-umbrella-beach"></i>
+    </div>
+    <b class="names">Beach</b>
+  </div>
+  <div class="filter">
+    <div class="icons">
+      <i class="fa-solid fa-mountain-sun"></i>
+    </div>
+    <b class="names">Amazing Views</b>
+  </div>
+  <div class="filter">
+    <div class="icons">
+      <i class="fa-brands fa-fort-awesome"></i>
+    </div>
+    <b class="names">Castles</b>
+  </div>
+
+  <div class="filter">
+    <div class="icons">
+      <i class="fa-solid fa-tents"></i>
+    </div>
+    <b class="names">Camping</b>
+  </div>
+  <div class="filter">
+    <div class="icons">
+      <i class="fa-solid fa-tree-city"></i>
+    </div>
+    <b class="names">Treehouses</b>
+  </div>
+  <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault"
+      />
+      <label class="form-check-label" for="flexSwitchCheckDefault"
+        >Display total before taxes</label
+      >
+    </div>
+  </div>
+</div>
+
+<div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+  <% data.forEach(element => { %>
+  <a href="/listings/<%= element._id %> " class="listing-link mb-3">
+    <div class="card col listing-card">
+      <img
+        src="<%= element.image.url %> "
+        class="card-img-top"
+        alt="Listing_image"
+        style="height: 16rem; width: 16rem"
+      />
+      <div class="card-img-overlay"></div>
+      <div class="card-body">
+        <p class="card-text">
+          <b> <%= element.title %></b><br />
+          &#8377; <%= element.price.toLocaleString("en-IN")%> /night
+          <i class="tax-info">&nbsp +18% GST</i>
+        </p>
+      </div>
+    </div></a
+  >
+
+  <% }) %>
+</div>
+
+<script>
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    let taxInfoElements = document.querySelectorAll(".tax-info");
+    taxInfoElements.forEach((element) => {
+      if (taxSwitch.checked) {
+        element.style.display = "inline";
+        element.style.color = "red";
+        element.style.fontSize = "0.8rem";
+        element.style.verticalAlign = "super";
+        element.style.animation = "blink 1s step-start infinite";
+      } else {
+        element.style.display = "none";
+        element.style.color = "";
+        element.style.fontSize = "";
+        element.style.verticalAlign = "";
+        element.style.animation = "";
+      }
+    });
+
+    // Add keyframes for blinking effect
+    let styleSheet = document.styleSheets[0];
+    styleSheet.insertRule(
+      `
+    @keyframes blink {
+    50% { opacity: 0; }
+    }
+  `,
+      styleSheet.cssRules.length
+    );
+  });
+</script>
