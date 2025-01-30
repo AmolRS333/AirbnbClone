@@ -44,10 +44,8 @@ const sessionConfig = {
 
 main().catch((err) => console.log(err));
 async function main() {
-  await mongoose.connect(dbURL, {
+  mongoose.connect(dbURL, {
     tls: true,
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
   });
 }
 
