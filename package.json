@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "20.x"
+    "node": "22.12.0"
   },
   "name": "air",
   "version": "1.0.0",
