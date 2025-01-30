@@ -63,7 +63,7 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "Views"));
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
