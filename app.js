@@ -34,7 +34,7 @@ const sessionConfig = {
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
-  Cookie: {
+  cookie: {
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7,
     httpOnly: true,
@@ -85,9 +85,9 @@ app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));
 });
 
-app.use((err, req, res, next) => {
+app.use((err, res) => {
   let { statusCode = 500, message = "Something went wrong!" } = err;
-  res.status(statusCode).render("error.ejs", { message });
+  res.status(statusCode).render("error", { message });
   // res.status(statusCode).send(message);
 });
 
